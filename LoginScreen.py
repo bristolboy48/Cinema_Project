@@ -1,5 +1,10 @@
 import tkinter as tk
 from tkinter import messagebox
+from Users import User
+import sqlite3 as sql
+
+
+
 
 # Function to handle login
 def login():
@@ -15,9 +20,18 @@ def login():
 def register():
     username = entry_new_username.get()
     password = entry_new_password.get()
-
     # You can add your own logic here for user registration
+    con = sql.connect("data.db")
+    cur = con.cursor()
+    statement = """
+            CREATE TABLE IF NOT EXISTS "users" (
+                "username" TEXT,
+                "password" TEXT
+            );"""
+
+    cur.execute(statement)
     # Typically, this would involve saving the username and password securely
+    
     # For simplicity, we'll just display a message here
     messagebox.showinfo("Registration", f"User {username} registered successfully!")
 
